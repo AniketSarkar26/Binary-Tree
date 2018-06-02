@@ -1,0 +1,57 @@
+Construct Binary Tree from Preorder and Inorder Traversal
+/**
+
+ * Definition for a binary tree node.
+
+ * public class TreeNode {
+
+ *     int val;
+
+ *     TreeNode left;
+
+ *     TreeNode right;
+
+ *     TreeNode(int x) { val = x; }
+
+ * }
+
+ */
+
+class Solution {
+
+    int index=0;
+
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+
+        return helper(preorder,inorder,0,inorder.length-1);
+
+    }
+
+   TreeNode helper(int[] preorder, int[] inorder, int i, int j){
+
+        if(index >= preorder.length) return null;
+
+        if(i>j) return null;
+
+        int m = i;
+
+        for(;m<=j;m++) {
+
+            if(preorder[index] == inorder[m]) break;
+
+        }
+
+        TreeNode node = new TreeNode(preorder[index]);
+
+        index++;
+
+        node.left = helper(preorder, inorder, i, m-1);
+
+        node.right = helper(preorder, inorder, m+1, j);
+
+        return node;
+
+    }
+
+    
+}
